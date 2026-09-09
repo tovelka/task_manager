@@ -1,18 +1,16 @@
 # backend/app/routes/auth.py
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ..models import User, Event, EventStatus
+from ..models import User
 from ..schemas.events import (
     EventListResponse,
     EventResponse,
     EventCreate,
-    EventDelete,
     EventUpdate,
 )
-from ..deps import get_current_user, get_db, get_user_service
+from ..deps import get_current_user, get_db
 from ..services.events import EventService
-from ..services.auth import UserService
 from ..exceptions import (
     NotFoundException,
     AccessDeniedException,

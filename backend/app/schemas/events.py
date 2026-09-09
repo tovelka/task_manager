@@ -23,7 +23,3 @@ class EventResponse(EventBase):
 class EventListResponse(BaseModel):
     events: list[EventResponse]
     count: int
-
-
-class EventDelete(BaseModel):
-    id: int

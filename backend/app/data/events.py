@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import Event
-from ..schemas.events import EventCreate, EventUpdate
+from ..schemas.events import EventUpdate
 
 
 class EventRepository:

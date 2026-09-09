@@ -1,9 +1,8 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..data import user, events
-from ..data.refresh_tokens import RefreshTokensRepository
 from ..models import Event, EventStatus
 from ..config import get_settings
 from ..exceptions import (
@@ -11,7 +10,7 @@ from ..exceptions import (
     AccessDeniedException,
     UncorrectDataException,
 )
-from ..schemas.events import EventUpdate, EventDelete, EventCreate
+from ..schemas.events import EventUpdate, EventCreate
 
 settings = get_settings()
 

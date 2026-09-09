@@ -3,7 +3,6 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import User, Event
-from ..schemas.auth import UserCreate
 
 
 class UserRepository:
