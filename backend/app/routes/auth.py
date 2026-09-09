@@ -1,7 +1,5 @@
-# backend/app/routes/auth.py
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
-from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import User
@@ -16,7 +14,6 @@ from ..exceptions import (
 )
 
 router = APIRouter(prefix='/auth', tags=['users'])
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
 
 @router.get('/me')

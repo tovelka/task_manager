@@ -20,3 +20,11 @@ class DuplicateException(Exception):
     def __init__(self, details: str, *args: object) -> None:
         self.details = details
         super().__init__(*args)
+
+
+class UncorrectDataException(Exception):
+    status_code = 422
+
+    def __init__(self, details: str, *args: object) -> None:
+        self.details = details
+        super().__init__(*args)

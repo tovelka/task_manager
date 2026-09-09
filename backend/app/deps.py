@@ -21,7 +21,7 @@ async def get_current_user(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail={
                 'code': 'NOT_AUTHENTICATED',
-                'message': 'Требуется авторизация',
+                'message': 'Требуется Аутентификация',
             },
         )
 
