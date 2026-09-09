@@ -68,6 +68,6 @@ def get_access_token(request: Request) -> Optional[str]:
     return request.cookies.get(ACCESS_TOKEN_COOKIE)
 
 
-def get_refresh_token(request: Request) -> Optional[str]:
+def get_refresh_token_from_cookies(request: Request) -> Optional[str]:
     """Достаёт refresh_token из cookie запроса."""
     return request.cookies.get(REFRESH_TOKEN_COOKIE)

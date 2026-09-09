@@ -28,10 +28,8 @@ class UserRepository:
         )
         return list(result.scalars().all())
 
-    async def create(self, user_data: UserCreate, password_hash: str) -> User:
-        user_dict = user_data.model_dump(exclude={'password'})
-        user_dict['password_hash'] = password_hash
-        db_user = User(**user_dict)
+    async def create(self, user: User) -> User:
+        self.db.add(user)
         await self.db.flush()
-        await self.db.refresh(db_user)
-        return db_user
+        await self.db.refresh(user)
+        return user

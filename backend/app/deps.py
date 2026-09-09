@@ -1,11 +1,13 @@
-from fastapi import Depends, HTTPException, Request, status
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from fastapi import HTTPException, Request, status, Depends
 
 from .database import get_db
 from .models import User
 from .services.jwt import decode_token
 from .services.cookies import get_access_token
+from .services.auth import UserService
+
+
+user_service = UserService(Depends(get_db))
 
 
 async def get_current_user(
@@ -44,7 +46,7 @@ async def get_current_user(
             },
         )
 
-    result = user
+    user = await user_service.get_user_by_id(user_id)
 
     if user is None:
         raise HTTPException(
@@ -56,3 +58,7 @@ async def get_current_user(
         )
 
     return user
+
+
+def get_user_service():
+    return UserService(Depends(get_db))
