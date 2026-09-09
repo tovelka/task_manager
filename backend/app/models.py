@@ -35,6 +35,10 @@ class User(Base):
         lazy='noload',
     )
 
+    events: Mapped[list['Event']] = relationship(
+        foreign_keys='Event.created_by_id', back_populates='author'
+    )
+
 
 class RefreshToken(Base):
     __tablename__ = 'refresh_tokens'
@@ -81,9 +85,9 @@ class Event(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow
     )
+    starts_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     ends_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
 
-    user: Mapped['User'] = relationship(
-        back_populates='events',
-        lazy='noload',
+    author: Mapped['User'] = relationship(
+        back_populates='events', foreign_keys=[created_by_id]
     )

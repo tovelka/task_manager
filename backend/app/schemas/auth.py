@@ -7,3 +7,9 @@ class UserResponse(BaseModel):
     username: str
     email: str
     created_at: datetime
+
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str
