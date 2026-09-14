@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3 App</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{ message }}
+    
+    <div v-if="user">{{ user }}</div>
+
+    <form @submit.prevent>
+        <input v-model="user" type="text" placeholder="Введите имя" @keyup.enter="add_task">
+    </form>
+
+    <button @click="submiter">Поменяй текст</button>
+    
+    <div>{{submit_text}}</div>
+    
+    <button @click="add_task">Добавить ФИО</button>
+    <ul>
+      <li v-for="task in tasks" :key="task.id">
+        {{ task }}
+        <button @click="delete_task(task)" style="color: red;">X</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          message: 'Hello Vue 3!',
+          user: 'ФИО',
+          submit_text: 'Привет',
+          tasks: [{id: 1, name: 'Первая'}]
+        }
+      },
+      methods: {
+        submiter() {
+          if (this.submit_text === 'Привет') {
+            this.submit_text = 'Пока';
+          }
+          else {
+            this.submit_text = 'Привет';
+          }
+        },
+        add_task() {
+          this.tasks.push({id: this.tasks.length + 1,name: this.user});
+        },
+        delete_task(task) {
+          new_tasks = [];
+          for (let i = 0; i < this.tasks.length; i++) {
+            if (this.tasks[i] != task) {
+              new_tasks.push(this.tasks[i]);
+            }
+          }
+          this.tasks = new_tasks;
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

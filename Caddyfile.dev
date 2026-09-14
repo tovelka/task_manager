@@ -1,0 +1,11 @@
+{$DOMAIN} {
+    tls internal
+
+	handle /api/* {
+		reverse_proxy fastapi-app:8000
+	}
+
+	handle {
+        reverse_proxy host.docker.internal:5173
+    }
+}
