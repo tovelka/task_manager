@@ -18,6 +18,11 @@ class UserCreate(BaseModel):
     password: str
 
 
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+
 class Tokens(BaseModel):
     access_token: str
     refresh_token: str

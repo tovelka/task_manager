@@ -15,6 +15,8 @@ from .database import Base
 
 
 class User(Base):
+    __tablename__ = 'users'
+
     id: Mapped[int] = mapped_column(
         Integer, primary_key=True, autoincrement=True
     )
@@ -72,6 +74,12 @@ class EventStatus(str, enum.Enum):
 
 
 class Event(Base):
+    __tablename__ = 'events'
+
+    id: Mapped[int] = mapped_column(
+        Integer, primary_key=True, autoincrement=True
+    )
+
     title: Mapped[str] = mapped_column(String(64), nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=True)
 
@@ -80,7 +88,7 @@ class Event(Base):
     )
 
     created_by_id: Mapped[int] = mapped_column(
-        Integer, ForeignKey('User.id', ondelete='CASCADE'), nullable=False
+        Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime, default=datetime.utcnow

@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import User
-from ..schemas.auth import UserCreate, UserResponse, Tokens
+from ..schemas.auth import UserCreate, UserResponse, Tokens, UserLogin
 from ..deps import get_current_user, get_db, get_user_service
 from ..services import cookies, jwt
 from ..services.auth import UserService
@@ -41,10 +41,11 @@ async def register(
 
 @router.post('/login/')
 async def login(
-    user_data: UserCreate,
+    user_data: UserLogin,
     response: Response,
-    user_service: UserService = Depends(get_user_service),
+    db: AsyncSession = Depends(get_db),
 ):
+    user_service = UserService(db)
     try:
         user = await user_service.authenticate_user(
             user_data.username, user_data.password

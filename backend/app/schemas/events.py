@@ -18,6 +18,8 @@ class EventUpdate(EventBase): ...
 
 class EventResponse(EventBase):
     id: int
+    created_by_id: int
+    created_at: datetime
 
 
 class EventListResponse(BaseModel):

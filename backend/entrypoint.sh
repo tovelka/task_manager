@@ -18,6 +18,9 @@ elif [ "$1" = "--shell" ]; then
     exec /bin/bash
 fi
 
+echo "Make migrations..."
+python manage.py --makemigration 'Init migrations'
+
 echo "Running migrations..."
 python manage.py --migrate
 

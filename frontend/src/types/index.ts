@@ -1,11 +1,7 @@
 export interface RegisterRequest {
   email: string
+  username: string
   password: string
-  is_sandbox?: boolean
-  invite_code?: string
-  agree_terms: boolean
-  understand_risks: boolean
-  agree_data_processing: boolean
 }
 
 export interface LoginRequest {
@@ -17,10 +13,6 @@ export interface LoginResponse {
   message?: string
 }
 
-export interface RefreshResponse {
-  message?: string
-}
-
 export interface UserResponse {
   id: number
   username: string
@@ -28,15 +20,9 @@ export interface UserResponse {
   created_at: string
 }
 
-export interface UserResponse {
-  username: string
-  email: string
-  password: string
-}
-
 export interface EventSet {
   title: string
-  description: string
+  description?: string
   starts_at: string
   ends_at: string
 }
@@ -44,9 +30,11 @@ export interface EventSet {
 export interface EventResponse {
   id: number
   title: string
-  description: string
+  description?: string
   starts_at: string
   ends_at: string
+  created_by_id: number
+  created_at: string
 }
 
 export interface EventListResponse {

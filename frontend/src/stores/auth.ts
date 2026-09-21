@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       await authApi.login(credentials)
       await fetchUser()
-      router.push('/dashboard')
+      router.push('/home')
     } finally {
       loading.value = false
     }
@@ -30,18 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true
     try {
       const response = await authApi.register(data)
-      router.push({ path: '/verify', query: { email: data.email } })
-    } finally {
-      loading.value = false
-    }
-  }
-
-  async function verify(email: string, code: string) {
-    loading.value = true
-    try {
-      await authApi.verify({ email, code })
-      await fetchUser()
-      router.push('/dashboard')
+      router.push('/home')
     } finally {
       loading.value = false
     }
@@ -58,7 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function fetchUser(): Promise<boolean> {
     try {
-      const { data } = await usersApi.getMe()
+      const { data } = await authApi.getMe() // Fixed this line
       user.value = data
       return true
     } catch {
@@ -80,6 +69,15 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const initializeAuth = () => {
+    // Check if user is already logged in
+    const savedUser = localStorage.getItem('user')
+
+    if (savedUser) {
+      user.value = JSON.parse(savedUser)
+    }
+  }
+
   return {
     user,
     loading,
@@ -88,9 +86,9 @@ export const useAuthStore = defineStore('auth', () => {
     clearAuthState,
     login,
     register,
-    verify,
     logout,
     fetchUser,
     initAuth,
+    initializeAuth
   }
 })
